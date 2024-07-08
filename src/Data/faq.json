@@ -1,0 +1,49 @@
+[
+   
+    {
+        "id":2,
+        "title":"How much time do the lessons take?",
+        "description":" We expect each monthly practice session to take about 30 minutes, with additional time allotted when you need more practice."
+    },
+    {
+        "id":3,
+        "title":"Does my kit include everything I need to practice?",
+        "description":" Almost. For many procedures (cric for example), the materials needed are universal so the kits are all-inclusive. But we believe it is important to train with the equipment that you will actually use in your department. So for some procedures, you will want to supplement with supplies from your ED. For example, we wouldn’t want to send you a Blakemore tube if you stock a Minnesota."
+    },
+    {
+        "id":4,
+        "title":"Are the supplies mine to keep?",
+        "description":"Yes! Our program runs over a 12-month period, but you keep each SimKit subscription box and its contents to use the materials over and over. Each model in the kit is designed to remain functional long after your subscription ends. Our hope is for you to use these tools over and over so you can practice these critical procedures anytime."
+    },
+    {
+        "id":5,
+        "title":"How is the training structured?",
+        "description":"Our program is based on cognitive science principles including spaced repetition. Learning and practicing for a short amount of time—about 30 minutes per month—at regular intervals is ideal for long-term retention and efficient learning."
+    },
+    {
+        "id":6,
+        "title":"When should I expect my first box?",
+        "description":"Boxes will be delivered at the start of each month. Your purchase date will determine when you receive your first box. Subscriptions purchased prior to the 15th of the month will be sent close to the start of the following month. Subscriptions purchased after the 15th will be sent for the start of the month after the next. For example: If you purchase your subscription on January 5, your first box will be delivered at the start of February. If you purchase your subscription on January 17th, your first box will be delivered at the start of March."
+    },
+    {
+        "id":7,
+        "title":"Will I receive a box every month during my subscription?",
+        "description":"Yes, as a SimKit subscription member, you will receive something in the mail each month, aside from your school loan papers or a card from your favorite aunt."
+    },
+    {
+        "id":8,
+        "title":"How do you ship the SimKit subscription boxes?",
+        "description":"SimKit subscription boxes are shipped via USPS and will arrive with your mail."
+    },
+    {
+        "id":9,
+        "title":"Can I ship to a P.O. Box?",
+        "description":"Yes, SimKit subscription boxes are shipped via USPS and can ship to any street address or P.O. Box location."
+    },
+    {
+        "id":10,
+        "title":"What payment methods do you accept?",
+        "description":"You can conveniently pay online for your monthly or annual subscription with a credit card. We accept Visa and MasterCard. Remember to use your CME allotment!"
+    }
+   
+]
