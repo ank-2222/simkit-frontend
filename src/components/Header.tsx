@@ -59,13 +59,13 @@ function Header() {
               <Link to="/how">How it Works</Link>
             </li>
             <li>
-              <Link to="/">About us</Link>
+              <Link to="/about-us">About us</Link>
             </li>
             <li>
               <Link to="/faq">FAQs</Link>
             </li>
             <li>
-              <Link to="/">Podcasts</Link>
+              <Link to="/podcast">Podcasts</Link>
             </li>
             <li>
               <Link to="/product">Products</Link>
@@ -167,13 +167,13 @@ function Header() {
               <Link to="/how">How it Works</Link>
             </li>
             <li onClick={handleNavigation}>
-              <Link to="/">About us</Link>
+              <Link to="/about-us">About us</Link>
             </li>
             <li onClick={handleNavigation}>
-              <Link to="/billing">FAQs</Link>
+              <Link to="/faq">FAQs</Link>
             </li>
             <li onClick={handleNavigation}>
-              <Link to="/cart">Podcasts</Link>
+              <Link to="/podcast">Podcasts</Link>
             </li>
             <li onClick={handleNavigation}>
               <Link to="/product">Products</Link>

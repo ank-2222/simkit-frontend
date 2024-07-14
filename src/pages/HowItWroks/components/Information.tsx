@@ -20,7 +20,7 @@ import {
 function Information() {
   return (
     <div className="flex flex-col max-w-[100vw] justify-center item-center m-0 p-0 ">
-      <section className="flex flex-col px-4 md:px-8  lg:flex-row justify-start items-start xl:px-[100px] xl:gap-x-8 m-auto">
+      <section className="flex flex-col px-4 md:px-8 lg:my-16 lg:flex-row justify-start items-start xl:px-[100px] xl:gap-x-8 m-auto">
         <div>
           <p className="text-left w-full  text-black text-base font-semibold font-jakarta leading-normal  ">
             How does it work?

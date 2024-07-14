@@ -14,6 +14,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import Cart from "./pages/Cart/Cart";
 import Billing from "./pages/Billing/Billing";
 import OrderConfirm from "./pages/Billing/components/OrderConfirm";
+import About from "./pages/About/About";
+import Podcast from "./pages/Podcast/Podcast";
 // import { useEffect, useState } from 'react'
 // import { StoreRegion } from './Interface/product'
 // import Medusa from "@medusajs/medusa-js";
@@ -63,6 +65,8 @@ function App() {
         <Route path="/billing" element={<Billing />} />
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/confirm" element={<OrderConfirm />} />
+        <Route path="/about-us" element={<About />} />
+        <Route path="/podcast" element={<Podcast />} />
         <Route path="*" element={<div>Not Found</div>} />
       </Routes>
     </div>
