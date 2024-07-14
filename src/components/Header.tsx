@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { ShoppingBag, X } from "lucide-react";
 import { motion } from "framer-motion";
 import Medusa from "@medusajs/medusa-js";
-import { useCart } from "medusa-react";
 const medusa = new Medusa({
   baseUrl: import.meta.env.VITE_MEDUSA_BACKEND_URL,
   maxRetries: 3,
@@ -34,9 +33,7 @@ function Header() {
   const cart_id = localStorage.getItem("cart_id") || "";
 
   const [quantity, setQuantity] = useState(0);
-  const {cart}= useCart();
   useEffect(() => {
-    console.log(cart)
     if (cart_id) {
       medusa.carts.retrieve(cart_id).then((res) => {
         const cart = res.cart;
@@ -47,7 +44,7 @@ function Header() {
         setQuantity(totalQuantity);
       });
     }
-  }, [cart,cart_id]);
+  }, [cart_id]);
 
   return (
     <div>
@@ -62,13 +59,13 @@ function Header() {
               <Link to="/how">How it Works</Link>
             </li>
             <li>
-              <Link to="/confirm">About us</Link>
+              <Link to="/">About us</Link>
             </li>
             <li>
-              <Link to="/billing">FAQs</Link>
+              <Link to="/faq">FAQs</Link>
             </li>
             <li>
-              <Link to="/cart">Podcasts</Link>
+              <Link to="/">Podcasts</Link>
             </li>
             <li>
               <Link to="/product">Products</Link>

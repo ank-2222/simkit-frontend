@@ -15,11 +15,15 @@ import Skeleton from "react-loading-skeleton";
 import productDummyImage from "/images/product.jpeg";
 import { StoreRegion } from "@/Interface/product";
 import { ReactNode, useEffect, useState } from "react";
-import { useCreateCart, useCreateLineItem } from "medusa-react";
+import { useCreateCart } from "medusa-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-
+import Medusa from "@medusajs/medusa-js";
+const medusa = new Medusa({
+  baseUrl: import.meta.env.VITE_MEDUSA_BACKEND_URL,
+  maxRetries: 3,
+});
 interface ProductDescriptionTabProps {
   product: PricedProduct;
   region?: StoreRegion;
@@ -46,7 +50,6 @@ function ProductDescriptionTab({
   const [cartId, setCartId] = useState<string>(
     localStorage.getItem("cart_id") || ""
   );
-  const createLineItem = useCreateLineItem(cartId);
   const [quantity, setQuantity] = useState(0);
   const [isItemAdded, setIsItemAdded] = useState(false);
   const handleCartIncrement = () => {
@@ -58,34 +61,46 @@ function ProductDescriptionTab({
     }
   };
 
-  const handleAddToCart = async (variant_id: string, isBuyNow: boolean) => {
-    if ((cartId && quantity > 0) || isBuyNow) {
-      console.log("already cart exists");
-      setIsItemAdding(true);
-      createLineItem.mutate(
-        {
-          variant_id: variant_id,
-          quantity: isBuyNow ? 1 : quantity,
-        },
-        {
-          onSuccess: () => {
-            setQuantity(0);
-            setIsItemAdded(true);
-            setIsItemAdding(false);
+  const addItemToCart = async (
+    cart_id: string,
+    variant_id: string,
+    isBuyNow: boolean
+  ) => {
+    medusa.carts.lineItems
+      .create(cart_id, {
+        variant_id,
+        quantity: isBuyNow ? 1 : quantity,
+      })
+      .then(() => {
+        setQuantity(0);
+        setIsItemAdded(true);
+        setIsItemAdding(false);
 
-            toast({
-              title: "Added to cart",
-              description: "Item added to cart",
-              variant: "success",
-            });
-            if (isBuyNow) {
-              window.location.href = "/cart?cart_id=" + cartId;
-            }
-          },
+        toast({
+          title: "Added to cart",
+          description: "Item added to cart",
+          variant: "success",
+        });
+        if (isBuyNow) {
+          window.location.href = "/cart?cart_id=" + cartId;
         }
-      );
-    } else if (quantity > 0 ||isBuyNow) {
-      console.log("creating new cart");
+      })
+      .catch(() => {
+        toast({
+          title: "Please try again",
+          description: "Error adding to cart",
+          variant: "error",
+        });
+      });
+  };
+
+  const handleAddToCart = async (variant_id: string, isBuyNow: boolean) => {
+    if ((cartId && quantity > 0) || (isBuyNow && cartId)) {
+      setIsItemAdding(true);
+      addItemToCart(cartId, variant_id, isBuyNow);
+    } else if (quantity > 0 || isBuyNow) {
+      
+      setIsItemAdding(true);
       createCart.mutate(
         {
           region_id: region_id,
@@ -94,37 +109,8 @@ function ProductDescriptionTab({
           onSuccess: ({ cart }) => {
             setCartId(cart.id);
             localStorage.setItem("cart_id", cart.id);
+            addItemToCart(cart.id, variant_id, isBuyNow);
           },
-          onError: () => {
-            toast({
-              title: "Please try again",
-              description: "Error adding to cart",
-              variant: "error",
-            });
-          },
-        }
-      );
-      createLineItem.mutate(
-        {
-          variant_id: variant_id,
-          quantity: isBuyNow ? 1 : quantity,
-        },
-        {
-          onSuccess: () => {
-            setQuantity(0);
-            setIsItemAdded(true);
-            setIsItemAdding(false);
-
-            toast({
-              title: "Added to cart",
-              description: "Item added to cart",
-              variant: "success",
-            });
-            if (isBuyNow) {
-              window.location.href = "/cart?cart_id=" + cartId;
-            }
-          },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onError: () => {
             toast({
               title: "Please try again",
@@ -141,6 +127,7 @@ function ProductDescriptionTab({
       });
     }
   };
+
   return (
     <div className=" my-4  xl:max-w-[90%] m-auto ">
       <section className=" flex  flex-col lg:flex-row  justify-center items-center gap-y-4 lg:justify-center lg:items-start ">
@@ -295,11 +282,11 @@ function ProductDescriptionTab({
               <ShoppingCart /> Go to Cart
             </Link>
             {!isItemAdded ? (
-              <button 
-              disabled={isItemAdding}
-              onClick={() =>
-                handleAddToCart(product?.variants[0]?.id || "", true)
-              }
+              <button
+                disabled={isItemAdding}
+                onClick={() =>
+                  handleAddToCart(product?.variants[0]?.id || "", true)
+                }
                 id="buy-now"
                 className="flex justify-center items-center flex-row w-full border-2 border-black/10  h-12 rounded-[0.3rem]  text-cGreen font-semibold  text-[1.1rem]  "
               >

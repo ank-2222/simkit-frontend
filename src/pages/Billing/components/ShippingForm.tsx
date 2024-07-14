@@ -28,8 +28,8 @@ import { useEffect } from "react";
 
 interface BillingFormProps {
   handleAddShipping: (data: IShippingForm) => void;
-  editAddress?:IShippingForm;
-  setIsAddressEditing?:React.Dispatch<React.SetStateAction<boolean>>;
+  editAddress?: IShippingForm;
+  setIsAddressEditing?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const formSchema = z.object({
@@ -48,7 +48,11 @@ const formSchema = z.object({
   state: z.string().min(3, { message: "State is required." }),
 });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ShippingForm({ handleAddShipping ,editAddress,setIsAddressEditing}: BillingFormProps) {
+function ShippingForm({
+  handleAddShipping,
+  editAddress,
+  setIsAddressEditing,
+}: BillingFormProps) {
   //   const navigate = useNavigate();
   //   const params = new URLSearchParams(window.location.search);
   //   const aheadLogin = params.get("ahead");
@@ -70,15 +74,16 @@ function ShippingForm({ handleAddShipping ,editAddress,setIsAddressEditing}: Bil
     },
   });
 
-  useEffect(()=>{
-    if(editAddress){
+  useEffect(() => {
+    if (editAddress) {
       form.reset(editAddress);
     }
-  },[editAddress,form])
+  }, [editAddress, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     handleAddShipping(values);
-    if(setIsAddressEditing){
+
+    if (setIsAddressEditing) {
       setIsAddressEditing(false);
     }
     form.reset();

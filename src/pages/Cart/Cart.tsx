@@ -11,17 +11,27 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 // import { useParams } from "react-router-dom";
-import { useDeleteLineItem, useGetCart, useUpdateCart, useUpdateLineItem } from "medusa-react";
+import {
+  useDeleteLineItem,
+  useGetCart,
+  useUpdateCart,
+  useUpdateLineItem,
+} from "medusa-react";
 import { CartItem as CartItemProps, CartSummary } from "@/Interface/cart";
 import { useToast } from "@/components/ui/use-toast";
 import { getItemsFromCart } from "@/utils/cart/getItemsFromCart";
 import Loader from "@/components/Loader";
+import Medusa from "@medusajs/medusa-js";
+const medusa = new Medusa({
+  baseUrl: import.meta.env.VITE_MEDUSA_BACKEND_URL,
+  maxRetries: 3,
+});
 function Cart() {
   // const { cartId } = useParams<{ cartId: string }>();
   const urlParams = new URLSearchParams(window.location.search);
   const cartId = urlParams.get("cart_id") || localStorage.getItem("cart_id");
   const { cart, isLoading: cartLoading } = useGetCart(cartId || "");
-  const updateCart = useUpdateCart(cartId||"")
+  const updateCart = useUpdateCart(cartId || "");
   const [isCartEmpty, setIsCartEmpty] = useState<boolean>(true);
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [cartSummary, setCartSummary] = useState<CartSummary>({
@@ -29,7 +39,9 @@ function Cart() {
     tax_total: 0,
     total: 0,
     shipping_total: 0,
-   
+    discount_code: [],
+    discount_total: 0,
+    no_of_discounts: 0,
   });
   useEffect(() => {
     if (cart && cart?.items.length !== 0) {
@@ -39,6 +51,9 @@ function Cart() {
         tax_total: cart?.tax_total,
         total: cart?.total,
         shipping_total: cart?.shipping_total,
+        discount_total: cart?.discount_total,
+        discount_code: cart?.discounts.map((discount) => discount.code),
+        no_of_discounts: cart?.discounts.length,
       };
 
       setCartItems((items as CartItemProps[]) ?? []);
@@ -62,12 +77,16 @@ function Cart() {
             description: "Item removed from cart",
             variant: "default",
           });
+
           const items = getItemsFromCart(cart);
           const summary = {
             subtotal: cart?.subtotal,
             tax_total: cart?.tax_total,
             total: cart?.total,
             shipping_total: cart?.shipping_total,
+            discount_total: cart?.discount_total,
+            discount_code: cart?.discounts.map((discount) => discount.code),
+            no_of_discounts: cart?.discounts.length,
           };
 
           setCartItems((items as CartItemProps[]) ?? []);
@@ -108,6 +127,9 @@ function Cart() {
             tax_total: cart?.tax_total,
             total: cart?.total,
             shipping_total: cart?.shipping_total,
+            discount_total: cart?.discount_total,
+            discount_code: cart?.discounts.map((discount) => discount.code),
+            no_of_discounts: cart?.discounts.length,
           };
 
           setCartItems((items as CartItemProps[]) ?? []);
@@ -118,38 +140,82 @@ function Cart() {
     setIsActionLoading(false);
   };
 
-
-  const handleDiscount = (
-    discount_code:string
-  ) => {
-    if(!discount_code) {
+  const handleDiscount = (discount_code: string, no_of_discounts: number) => {
+    if (!discount_code) {
       toast({
         title: "Please enter a valid coupon code",
         variant: "default",
       });
       return;
     }
-    updateCart.mutate({
-      discounts: [{ code: discount_code }]
-    }, {
-      onSuccess: ({ cart }) => {
-        console.log("new cart",cart)
-        toast({
-          title: "Discount applied",
-          description: "Discount applied successfully",
-          variant: "success",
-        });
-        const summary = {
-          subtotal: cart?.subtotal,
-          tax_total: cart?.tax_total,
-          total: cart?.total,
-          shipping_total: cart?.shipping_total,
-        };
+    if (no_of_discounts > 0) {
+      toast({
+        title: "Discount already applied",
+        description: "Discount already applied",
+        variant: "default",
+      });
+      return;
+    }
+    updateCart.mutate(
+      {
+        discounts: [
+          { code: discount_code },
+          // ...(cartSummary && cartSummary.discount_code ? cartSummary.discount_code.map(code => ({ code })) : [])
+        ],
+      },
+      {
+        onSuccess: ({ cart }) => {
+          toast({
+            title: "Discount applied",
+            description: "Discount applied successfully",
+            variant: "success",
+          });
+          const summary = {
+            subtotal: cart?.subtotal,
+            tax_total: cart?.tax_total,
+            total: cart?.total,
+            shipping_total: cart?.shipping_total,
+            discount_total: cart?.discount_total,
+            discount_code: cart?.discounts.map((discount) => discount.code),
+            no_of_discounts: cart?.discounts.length,
+          };
 
-        setCartSummary((summary as CartSummary) ?? {});
+          setCartSummary((summary as CartSummary) ?? {});
+        },
       }
-    })
-  }
+    );
+  };
+
+  const handleRemoveDiscount = (discount_code: string) => {
+    try {
+      console.log(cartId,discount_code);
+      if (cartId&&discount_code) {
+        medusa.carts
+          .deleteDiscount(cartId ?? "", discount_code)
+          .then(({ cart }) => {
+            toast({
+              title: "Discount Removed",
+              description: "Discount Removed successfully",
+              variant: "default",
+            });
+            const summary = {
+              subtotal: cart?.subtotal,
+              tax_total: cart?.tax_total,
+              total: cart?.total,
+              shipping_total: cart?.shipping_total,
+              discount_total: cart?.discount_total,
+              discount_code: cart?.discounts.map((discount) => discount.code),
+              no_of_discounts: cart?.discounts.length,
+            };
+  
+            setCartSummary((summary as CartSummary) ?? {});
+          });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+   
+  };
 
   return (
     <div className="xl:w-[90%] w-[100vw] m-auto px-4 md:px-6 mt-6 flex flex-col lg:flex-row justify-center items-start gap-x-8 gap-y-8 ">
@@ -201,7 +267,6 @@ function Cart() {
                 deleteItem={() => handleRemoveItem(item.line_id)}
                 handleUpdateItem={handleUpdateItem}
                 isActionLoading={isActionLoading}
-                
               />
             ))
           )}
@@ -217,6 +282,10 @@ function Cart() {
               tax_total={cartSummary?.tax_total}
               shipping_total={cartSummary?.shipping_total}
               handleDiscount={handleDiscount}
+              handleRemoveDiscount={handleRemoveDiscount}
+              discount_code={cartSummary?.discount_code}
+              discount_total={cartSummary?.discount_total}
+              no_of_discounts={cartSummary?.no_of_discounts}
             />
           </>
         ) : null}

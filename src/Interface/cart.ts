@@ -15,9 +15,13 @@ export interface CartSummary {
   tax_total: number;
   total: number;
   shipping_total: number;
+  discount_total: number;
+  discount_code: string[];
+  no_of_discounts: number;
 }
 export interface CartOrderSummary extends CartSummary {
-handleDiscount: (discount_code:string) => void;
+handleDiscount: (discount_code:string,no_of_discounts:number) => void;
+handleRemoveDiscount: (discount_code:string) => void;
 }
 
 export interface BillingCartItem {
@@ -26,9 +30,6 @@ export interface BillingCartItem {
   quantity: number;
 }
 
-export interface BillingCartSummary extends CartSummary {
-  item: BillingCartItem[];
-}
 
 
 export interface IShippingForm {
@@ -48,4 +49,16 @@ export interface IShippingForm {
 export interface IShippingAddress extends IShippingForm {
   shipping_address_id: string;
   
+}
+
+export interface BillSummary{
+  subtotal: number;
+  tax_total: number;
+  total: number;
+  shipping_total: number;
+  discount_total: number;
+  discount_code: string[];
+  no_of_discounts: number;
+  item: BillingCartItem[];
+
 }

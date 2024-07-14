@@ -16,9 +16,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import Medusa from "@medusajs/medusa-js";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
+import Medusa from "@medusajs/medusa-js";
 const medusa = new Medusa({
   baseUrl: import.meta.env.VITE_MEDUSA_BACKEND_URL,
   maxRetries: 3,

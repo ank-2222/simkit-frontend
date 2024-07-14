@@ -14,22 +14,25 @@ import {
   useGetCart,
   useUpdateCart,
 } from "medusa-react";
-import { IShippingAddress, IShippingForm } from "@/Interface/cart";
+import {
+  BillingCartItem,
+  BillSummary,
+  IShippingAddress,
+  IShippingForm,
+} from "@/Interface/cart";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import ShippingDisplay from "./components/ShippingAddressDisplay";
 import ShippingForm from "./components/ShippingForm";
 import ShippingOption from "./components/ShippingOption";
 import { PricedShippingOption } from "@medusajs/medusa/dist/types/pricing";
-
+import { getItemsFromCart } from "@/utils/cart/getItemsFromCart";
+// import Medusa from "@medusajs/medusa-js";
+// const medusa = new Medusa({
+//   baseUrl: import.meta.env.VITE_MEDUSA_BACKEND_URL,
+//   maxRetries: 3,
+// });
 function Billing() {
-  const item = [
-    {
-      title: "The Models",
-      price: 234,
-      quantity: 1,
-    },
-  ];
   const { toast } = useToast();
 
   const [isShippingAddress, setIsShippingAddress] = useState<boolean>(false);
@@ -40,13 +43,17 @@ function Billing() {
   const [shippingAddress, setShippingAddress] = useState<IShippingAddress[]>(
     []
   );
+  const [billSummary, setBillSummary] = useState<BillSummary>();
+  const [isAuth, setIsAuth] = useState<boolean>(false);
   const [defaultAddress, setDefaultAddress] = useState<IShippingAddress>();
   const [shippingOption, setShippingOption] =
     useState<PricedShippingOption[]>();
   const { shipping_options } = useCartShippingOptions(cartId ?? "");
   const { cart } = useGetCart(cartId || "");
+
   useEffect(() => {
     if (cart?.shipping_address_id) {
+      console.log("setting from cart");
       const address: IShippingAddress = {
         shipping_address_id: cart?.shipping_address_id,
         email: cart?.email,
@@ -69,8 +76,62 @@ function Billing() {
   }, [cart]);
 
   useEffect(() => {
+    if (cart) {
+      const items = getItemsFromCart(cart);
+      const summary = {
+        subtotal: cart?.subtotal,
+        tax_total: cart?.tax_total,
+        total: cart?.total,
+        shipping_total: cart?.shipping_total,
+        discount_total: cart?.discount_total,
+        discount_code: cart?.discounts.map((discount) => discount.code),
+        no_of_discounts: cart?.discounts.length,
+        item: items as BillingCartItem[],
+      };
+      setBillSummary((summary as BillSummary) ?? {});
+    }
+  }, [cart]);
+
+  useEffect(() => {
     setShippingOption(shipping_options);
   }, [shipping_options]);
+
+  const token = localStorage.getItem("token") || "";
+  useEffect(() => {
+    if (token) setIsAuth(true);
+  }, [token]);
+  // useEffect(() => {
+  //   if (token !== "") {
+  //     console.log("setting from already logged in");
+
+  //     setIsAuth(true);
+  //     medusa.customers
+  //       .retrieve()
+  //       .then(({ customer }) => {
+  //         customer?.shipping_addresses.map((address) => {
+  //           const shippingAddress: IShippingAddress = {
+  //             shipping_address_id: address.id,
+  //             email: customer?.email as string,
+  //             first_name: address.first_name ?? "",
+  //             last_name: address.last_name ?? "",
+  //             address1: address.address_1 ?? "",
+  //             address2: address.address_2 ?? "",
+  //             company: address.company ?? "",
+  //             city: address.city ?? "",
+  //             postal_code: address.postal_code ?? "",
+  //             country: address.country_code ?? "",
+  //             phone: address.phone ?? "",
+  //             state: address.province ?? "",
+  //           };
+  //           setShippingAddress((prev) => [...prev, shippingAddress]);
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //     setDefaultAddress(shippingAddress[0]);
+  //   }
+  // }, [token]);
 
   const handleAddShipping = (data: IShippingForm) => {
     updateCart.mutate(
@@ -142,6 +203,11 @@ function Billing() {
     state: "",
   });
 
+  // const [isAddingNewAddress, setIsAddingNewAddress] = useState<boolean>(false);
+  // const handleSetAddNewAddress = () => {
+  //   setIsAddingNewAddress(true);
+  // };
+
   const handleAddressEdit = (shipping_address_id: string) => {
     const address = shippingAddress.find(
       (address) => address.shipping_address_id === shipping_address_id
@@ -150,6 +216,89 @@ function Billing() {
     setIsAddressEditing(true);
   };
 
+  // const handleAddNewAddress = (data: IShippingForm) => {
+  //   try {
+  //     medusa.customers.addresses
+  //       .addAddress({
+  //         address: {
+  //           first_name: data.first_name,
+  //           last_name: data.last_name,
+  //           address_1: data.address1,
+  //           address_2: data.address2,
+  //           company: data.company,
+  //           city: data.city,
+  //           postal_code: data.postal_code,
+  //           country_code: data.country,
+  //           phone: data.phone,
+  //           province: data.state,
+  //           metadata: {},
+  //         },
+  //       })
+  //       .then(({ customer }) => {
+  //         setIsAddingNewAddress(false);
+  //         console.log("setting from new");
+
+  //         customer?.shipping_addresses.map((address) => {
+  //           const shippingAddress: IShippingAddress = {
+  //             shipping_address_id: address.id,
+  //             email: customer?.email as string,
+  //             first_name: address.first_name ?? "",
+  //             last_name: address.last_name ?? "",
+  //             address1: address.address_1 ?? "",
+  //             address2: address.address_2 ?? "",
+  //             company: address.company ?? "",
+  //             city: address.city ?? "",
+  //             postal_code: address.postal_code ?? "",
+  //             country: address.country_code ?? "",
+  //             phone: address.phone ?? "",
+  //             state: address.province ?? "",
+  //           };
+  //           setShippingAddress([shippingAddress]);
+  //         });
+  //         setDefaultAddress(shippingAddress[0] || []);
+  //       });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+
+
+
+
+
+  // const handleDeleteAddress = (shipping_address_id: string) => {
+  //   medusa.customers.addresses
+  //     .deleteAddress(shipping_address_id)
+  //     .then(({ customer }) => {
+  //       toast({
+  //         title: "Address Deleted",
+  //         description: "Address deleted successfully",
+  //         variant: "success",
+  //       });
+
+  //       customer?.shipping_addresses.length !== 0
+  //         ? customer?.shipping_addresses?.map((address) => {
+  //             const shippingAddress: IShippingAddress = {
+  //               shipping_address_id: address.id,
+  //               email: customer?.email as string,
+  //               first_name: address.first_name ?? "",
+  //               last_name: address.last_name ?? "",
+  //               address1: address.address_1 ?? "",
+  //               address2: address.address_2 ?? "",
+  //               company: address.company ?? "",
+  //               city: address.city ?? "",
+  //               postal_code: address.postal_code ?? "",
+  //               country: address.country_code ?? "",
+  //               phone: address.phone ?? "",
+  //               state: address.province ?? "",
+  //             };
+  //             setShippingAddress([shippingAddress]);
+  //           })
+  //         : setShippingAddress([]);
+  //       setDefaultAddress(shippingAddress[0] || []);
+  //     });
+  // };
   return (
     <div>
       <div className="xl:w-[90%] w-[100vw] m-auto px-4 md:px-6 mt-6 flex flex-col lg:flex-row justify-center items-start gap-x-8 gap-y-8 mb-[50px] ">
@@ -193,19 +342,22 @@ function Billing() {
           <h1 className="text-gray-800 text-[2.25rem] mt-4 mb-2 font-bold font-jakarta leading-[110%]">
             Billing Details
           </h1>
-          <div className="flex flex-col md:flex-row justify-start items-start border-[1px] px-2 md:justify-between md:items-center py-2">
-            <p className="text-gray-800 text-2xl font-bold font-jakarta leading-[48px]">
-              {" "}
-              Returning Customer?
-            </p>
-            <Link
-              to="/auth?ahead=billing"
-              className="text-cGreen  font-semibold font-jakarta  flex flex-row justify-center items-center gap-x-2 text-[1.1rem]  border-2 w-fit px-4 py-2  "
-            >
-              Click here to Login
-              <ChevronRightCircle size={20} />
-            </Link>
-          </div>
+          {!isAuth && (
+            <div className="flex flex-col md:flex-row justify-start items-start border-[1px] px-2 md:justify-between md:items-center py-2">
+              <p className="text-gray-800 text-2xl font-bold font-jakarta leading-[48px]">
+                {" "}
+                Returning Customer?
+              </p>
+              <Link
+                to={`/auth?ahead=billing?cart_id=${cartId}`}
+                className="text-cGreen  font-semibold font-jakarta  flex flex-row justify-center items-center gap-x-2 text-[1.1rem]  border-2 w-fit px-4 py-2  "
+              >
+                Click here to Login
+                <ChevronRightCircle size={20} />
+              </Link>
+            </div>
+          )}
+
           <section>
             <div className=" w-full  flex flex-col justify-start items-center  pb-8  py-2 ">
               {isAddressEditing && (
@@ -220,10 +372,21 @@ function Billing() {
                   shippingAddress={shippingAddress}
                   defaultAddress={defaultAddress}
                   handleAddressEdit={handleAddressEdit}
+                  isAuth={isAuth}
+                  // handleSetAddNewAddress={handleSetAddNewAddress}
+                  // handleDeleteAddress={handleDeleteAddress}
                 />
-              ) : !isAddressEditing ? (
+              ) : !isAddressEditing && shippingAddress.length === 0 ? (
                 <ShippingForm handleAddShipping={handleAddShipping} />
               ) : null}
+
+              {/* {isAddingNewAddress && (
+                <ShippingForm
+                  handleAddShipping={handleAddNewAddress}
+                  editAddress={editAddress}
+                  setIsAddressEditing={setIsAddressEditing}
+                />
+              )} */}
             </div>
           </section>
           {showShippingOption && (
@@ -235,11 +398,14 @@ function Billing() {
 
         <section className="w-full lg:w-[300px]">
           <OrderSummary
-            subtotal={0}
-            total={0}
-            tax_total={90}
-            shipping_total={90}
-            item={item}
+            item={billSummary?.item ?? []}
+            subtotal={billSummary?.subtotal ?? 0}
+            tax_total={billSummary?.tax_total ?? 0}
+            total={billSummary?.total ?? 0}
+            shipping_total={billSummary?.shipping_total ?? 0}
+            discount_code={billSummary?.discount_code ?? []}
+            no_of_discounts={billSummary?.no_of_discounts ?? 0}
+            discount_total={billSummary?.discount_total ?? 0}
           />
         </section>
       </div>

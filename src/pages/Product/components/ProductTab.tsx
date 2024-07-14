@@ -8,9 +8,13 @@ import productDummyImage from "/images/product.jpeg";
 import Skeleton from "react-loading-skeleton";
 import { StoreRegion } from "@/Interface/product";
 import { useToast } from "@/components/ui/use-toast";
-import { useState, useEffect } from "react";
-import { useCreateCart, useCreateLineItem } from "medusa-react";
-
+import { useState } from "react";
+import { useCreateCart } from "medusa-react";
+import Medusa from "@medusajs/medusa-js";
+const medusa = new Medusa({
+  baseUrl: import.meta.env.VITE_MEDUSA_BACKEND_URL,
+  maxRetries: 3,
+});
 interface ProductTabProps {
   product: PricedProduct;
   region?: StoreRegion;
@@ -32,79 +36,142 @@ function ProductTab({ product, region }: ProductTabProps) {
   const [cartId, setCartId] = useState<string | null>(
     localStorage.getItem("cart_id")
   );
-  const createLineItem = useCreateLineItem(cartId??"");
+  // const createLineItem = useCreateLineItem(cartId??"");
 
-  const [pendingVariantId, setPendingVariantId] = useState<string | null>(null);
-  const [isBuyNow, setIsBuyNow] = useState(false);
+  // const [pendingVariantId, setPendingVariantId] = useState<string | null>(null);
+  // const [isBuyNow, setIsBuyNow] = useState(false);
 
-  const handleAddToCart = async (variant_id: string, isBuyNowFlag: boolean) => {
-    setIsItemAdding(true);
-    setPendingVariantId(variant_id);
-    setIsBuyNow(isBuyNowFlag);
+  // const handleAddToCart = async (variant_id: string, isBuyNowFlag: boolean) => {
+  //   setIsItemAdding(true);
+  //   setPendingVariantId(variant_id);
+  //   setIsBuyNow(isBuyNowFlag);
 
-    if (cartId) {
-      createLineItemRequest(variant_id, isBuyNowFlag);
-    } else {
-      createCartRequest();
-    }
-  };
+  //   if (cartId) {
+  //     createLineItemRequest(variant_id, isBuyNowFlag);
+  //   } else {
+  //     createCartRequest();
+  //   }
+  // };
 
-  const createLineItemRequest = (variant_id: string, isBuyNowFlag: boolean) => {
-    createLineItem.mutate(
-      {
-        variant_id: variant_id,
+
+  const addItemToCart = async (
+    cart_id: string,
+    variant_id: string,
+    isBuyNow: boolean
+  ) => {
+    medusa.carts.lineItems
+      .create(cart_id, {
+        variant_id,
         quantity: 1,
-      },
-      {
-        onSuccess: () => {
-          setIsItemAdding(false);
-          toast({
-            title: "Added to cart",
-            description: "Item added to cart",
-            variant: "success",
-          });
-          if (isBuyNowFlag) {
-            window.location.href = "/cart";
-          }
-        },
-        onError: () => {
-          toast({
-            title: "Please try again",
-            description: "Error adding to cart",
-            variant: "error",
-          });
-        },
-      }
-    );
+      })
+      .then(() => {
+        setIsItemAdding(false);
+
+        toast({
+          title: "Added to cart",
+          description: "Item added to cart",
+          variant: "success",
+        });
+        if (isBuyNow) {
+          window.location.href = "/cart?cart_id=" + cart_id;
+        }
+      })
+      .catch(() => {
+        toast({
+          title: "Please try again",
+          description: "Error adding to cart",
+          variant: "error",
+        });
+      });
   };
 
-  const createCartRequest = () => {
-    createCart.mutate(
-      {
-        region_id: region_id,
-      },
-      {
-        onSuccess: ({ cart }) => {
-          setCartId(cart.id);
-          localStorage.setItem("cart_id", cart.id);
-        },
-        onError: () => {
-          toast({
-            title: "Please try again",
-            description: "Error creating cart",
-            variant: "error",
-          });
-        },
-      }
-    );
-  };
 
-  useEffect(() => {
-    if (cartId && pendingVariantId) {
-      createLineItemRequest(pendingVariantId, isBuyNow);
-      setPendingVariantId(null);
+
+  const handleAddToCart = async (variant_id: string, isBuyNow: boolean) => {
+    if ((cartId)) {
+      setIsItemAdding(true);
+      addItemToCart(cartId, variant_id, isBuyNow);
+    } else {
+      
+      setIsItemAdding(true);
+      createCart.mutate(
+        {
+          region_id: region_id,
+        },
+        {
+          onSuccess: ({ cart }) => {
+            setCartId(cart.id);
+            localStorage.setItem("cart_id", cart.id);
+            addItemToCart(cart.id, variant_id, isBuyNow);
+          },
+          onError: () => {
+            toast({
+              title: "Please try again",
+              description: "Error adding to cart",
+              variant: "error",
+            });
+          },
+        }
+      );
     }
-  }, [cartId, pendingVariantId, isBuyNow]);
+  };
+
+  // const createLineItemRequest = (variant_id: string, isBuyNowFlag: boolean) => {
+  //   createLineItem.mutate(
+  //     {
+  //       variant_id: variant_id,
+  //       quantity: 1,
+  //     },
+  //     {
+  //       onSuccess: () => {
+  //         setIsItemAdding(false);
+  //         toast({
+  //           title: "Added to cart",
+  //           description: "Item added to cart",
+  //           variant: "success",
+  //         });
+  //         if (isBuyNowFlag) {
+  //           window.location.href = "/cart";
+  //         }
+  //       },
+  //       onError: () => {
+  //         toast({
+  //           title: "Please try again",
+  //           description: "Error adding to cart",
+  //           variant: "error",
+  //         });
+  //       },
+  //     }
+  //   );
+  // };
+
+  // const createCartRequest = () => {
+  //   createCart.mutate(
+  //     {
+  //       region_id: region_id,
+  //     },
+  //     {
+  //       onSuccess: ({ cart }) => {
+  //         setCartId(cart.id);
+  //         localStorage.setItem("cart_id", cart.id);
+  //       },
+  //       onError: () => {
+  //         toast({
+  //           title: "Please try again",
+  //           description: "Error creating cart",
+  //           variant: "error",
+  //         });
+  //       },
+  //     }
+  //   );
+  // };
+
+  // useEffect(() => {
+  //   if (cartId && pendingVariantId) {
+  //     createLineItemRequest(pendingVariantId, isBuyNow);
+  //     setPendingVariantId(null);
+  //   }
+  // }, [cartId, pendingVariantId, isBuyNow]);
 
   return (
     <div>
