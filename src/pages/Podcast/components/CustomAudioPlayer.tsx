@@ -78,7 +78,7 @@ const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({ src }) => {
   };
 
   return (
-    <div className="custom-audio-player w-[60%] ">
+    <div className="custom-audio-player w-[100%] lg:w-[60%] ">
       <audio
         ref={audioRef}
         src={src}
@@ -87,7 +87,7 @@ const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({ src }) => {
         onLoadedMetadata={handleLoadedMetadata}
       />
       {!showControls && (
-        <div className="flex justify-center items-center gap-x-4">
+        <div className="flex justify-start lg:justify-center items-center gap-x-4">
           <button onClick={togglePlayPause}>
             {isPlaying ? (
               <Pause
