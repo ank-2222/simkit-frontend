@@ -27,6 +27,11 @@ import ShippingForm from "./components/ShippingForm";
 import ShippingOption from "./components/ShippingOption";
 import { PricedShippingOption } from "@medusajs/medusa/dist/types/pricing";
 import { getItemsFromCart } from "@/utils/cart/getItemsFromCart";
+import {
+  useAddShippingMethodToCart,
+  useCreatePaymentSession,
+} from "medusa-react";
+import { PaymentSession } from "@medusajs/medusa";
 // import Medusa from "@medusajs/medusa-js";
 // const medusa = new Medusa({
 //   baseUrl: import.meta.env.VITE_MEDUSA_BACKEND_URL,
@@ -43,7 +48,16 @@ function Billing() {
   const [shippingAddress, setShippingAddress] = useState<IShippingAddress[]>(
     []
   );
-  const [billSummary, setBillSummary] = useState<BillSummary>();
+  const [billSummary, setBillSummary] = useState<BillSummary>({
+    subtotal: 0,
+    tax_total: 0,
+    total: 0,
+    shipping_total: 0,
+    discount_total: 0,
+    discount_code: [],
+    no_of_discounts: 0,
+    item: [],
+  });
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [defaultAddress, setDefaultAddress] = useState<IShippingAddress>();
   const [shippingOption, setShippingOption] =
@@ -215,6 +229,47 @@ function Billing() {
     setEditAddress(address as IShippingAddress);
     setIsAddressEditing(true);
   };
+
+  const [paymentSession, setPaymentSession] = useState<PaymentSession[]>([]);
+  const createPaymentSession = useCreatePaymentSession(cartId || "");
+
+  const [defaultShippingOption, setDefaultShippingOption] = useState<string>("");
+
+  const addShippingMethod = useAddShippingMethodToCart(cartId ?? "");
+  const handleAddShippingMethod = (optionId: string) => {
+    addShippingMethod.mutate(
+      {
+        option_id: optionId,
+      },
+      {
+        onSuccess: ({cart}) => {
+          const shippingAmount = cart?.shipping_total||0;
+          const totalAmount = cart?.total||0;
+          setBillSummary((prev) => ({
+            ...prev,
+            total: totalAmount,
+            shipping_total: shippingAmount,
+          }));
+          createPaymentSession.mutate(void 0, {
+            onSuccess: ({ cart }) => {
+              setPaymentSession(cart?.payment_sessions ?? []);
+            },
+          });
+        },
+      }
+    );
+  };
+
+  useEffect(()=>{
+    if(cart?.shipping_methods[0]){
+      setShowShippingOption(true);
+   
+      setDefaultShippingOption(cart?.shipping_methods[0].shipping_option_id);
+      setPaymentSession(cart?.payment_sessions ?? []);
+
+
+    }
+  },[cart])
 
   // const handleAddNewAddress = (data: IShippingForm) => {
   //   try {
@@ -391,21 +446,26 @@ function Billing() {
           </section>
           {showShippingOption && (
             <section>
-              <ShippingOption shippingOptions={shippingOption} />
+              <ShippingOption 
+              handleAddShippingMethod={handleAddShippingMethod}
+              paymentSession={paymentSession}
+              shippingOptions={shippingOption}
+              defaultShippingOption={defaultShippingOption}
+              />
             </section>
           )}
         </section>
 
         <section className="w-full lg:w-[300px]">
           <OrderSummary
-            item={billSummary?.item ?? []}
-            subtotal={billSummary?.subtotal ?? 0}
-            tax_total={billSummary?.tax_total ?? 0}
-            total={billSummary?.total ?? 0}
-            shipping_total={billSummary?.shipping_total ?? 0}
-            discount_code={billSummary?.discount_code ?? []}
-            no_of_discounts={billSummary?.no_of_discounts ?? 0}
-            discount_total={billSummary?.discount_total ?? 0}
+            item={billSummary?.item }
+            subtotal={billSummary?.subtotal}
+            tax_total={billSummary?.tax_total}
+            total={billSummary?.total }
+            shipping_total={billSummary?.shipping_total}
+            discount_code={billSummary?.discount_code}
+            no_of_discounts={billSummary?.no_of_discounts }
+            discount_total={billSummary?.discount_total}
           />
         </section>
       </div>

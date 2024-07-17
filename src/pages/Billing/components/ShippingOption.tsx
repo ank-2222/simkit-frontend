@@ -12,21 +12,20 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { PricedShippingOption } from "@medusajs/medusa/dist/types/pricing";
-import {
-  useAddShippingMethodToCart,
-  useCreatePaymentSession,
-} from "medusa-react";
-import { useState } from "react";
-import { PaymentSession } from "@medusajs/medusa";
+
 import Payment from "./Payment";
+import { PaymentSession } from "@medusajs/medusa";
 
 type IShippingOptionProps = {
   shippingOptions?: PricedShippingOption[];
+  paymentSession:PaymentSession[];
+  handleAddShippingMethod: (option_id: string) => void;
+  defaultShippingOption?: string;
 };
 
-function ShippingOption({ shippingOptions }: IShippingOptionProps) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const cartId = urlParams.get("cart_id") || localStorage.getItem("cart_id");
+function ShippingOption({ shippingOptions ,paymentSession,handleAddShippingMethod,defaultShippingOption}: IShippingOptionProps) {
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const cartId = urlParams.get("cart_id") || localStorage.getItem("cart_id");
   const FormSchema = z.object({
     shipping_option: z.string().min(1, { message: "Please select an option" }),
   });
@@ -35,26 +34,7 @@ function ShippingOption({ shippingOptions }: IShippingOptionProps) {
     resolver: zodResolver(FormSchema),
   });
 
-  const [paymentSession, setPaymentSession] = useState<PaymentSession[]>([]);
-  const createPaymentSession = useCreatePaymentSession(cartId || "");
-
-  const addShippingMethod = useAddShippingMethodToCart(cartId ?? "");
-  const handleAddShippingMethod = (optionId: string) => {
-    addShippingMethod.mutate(
-      {
-        option_id: optionId,
-      },
-      {
-        onSuccess: () => {
-          createPaymentSession.mutate(void 0, {
-            onSuccess: ({ cart }) => {
-              setPaymentSession(cart?.payment_sessions ?? []);
-            },
-          });
-        },
-      }
-    );
-  };
+  
 
   return (
     <div>
@@ -71,6 +51,7 @@ function ShippingOption({ shippingOptions }: IShippingOptionProps) {
                 <FormItem className="space-y-3">
                   <FormControl>
                     <RadioGroup
+                     defaultValue={defaultShippingOption}
                       onValueChange={(value) => {
                         field.onChange(value); // This updates the form state
                         handleAddShippingMethod(value); // This calls your function
