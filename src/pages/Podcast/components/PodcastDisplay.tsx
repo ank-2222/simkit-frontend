@@ -1,6 +1,7 @@
 import podcast1 from "/images/podcast1.png";
 import { Podcast } from "@/Interface/podcast";
 import CustomAudioPlayer from "./CustomAudioPlayer";
+import { formatDistanceToNow } from 'date-fns';
 interface PodcastDisplayProps {
   podcast: Podcast;
 }
@@ -16,17 +17,15 @@ function PodcastDisplay({ podcast }: PodcastDisplayProps) {
         <div className="flex flex-col lg:flex-row justify-start items-start gap-x-4">
           <img
             src={podcast?.image_url || podcast1}
-            className="w-[100px]   h-[100px] rounded-[0.5rem]  "
+            className="min-w-[100px] h-[100px] object-cover border-2  rounded-[0.5rem]  "
           ></img>
 
           <div>
-            <p className="text-lime-700 text-lg font-bold font-jakata leading-[27px]">
-              {/* {podcast.created_at.toL} */}
-            </p>
-            <p className="capitalize text-black text-[1.5rem] font-bold font-jakarta leading-[120%]">
+          <p>{podcast?.subtitle}  • {formatDistanceToNow(new Date(podcast?.created_at), { addSuffix: true })}</p>
+            <p className="capitalize text-black text-[1.3rem] font-bold font-jakarta leading-[120%]">
               {podcast.title}
             </p>
-            <p className="text-neutral-500 text-lg font-normal line-clamp-3 font-jakarta leading-[110%]">
+            <p className="text-neutral-500 text-base font-normal line-clamp-3 font-jakarta leading-[110%]">
               {podcast.description}
             </p>
               <a className="text-cGreen underline">Read more</a>
