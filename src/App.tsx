@@ -16,6 +16,7 @@ import Billing from "./pages/Billing/Billing";
 import OrderConfirm from "./pages/Billing/components/OrderConfirm";
 import About from "./pages/About/About";
 import Podcast from "./pages/Podcast/Podcast";
+import PodcastArticle from "./pages/Podcast/PodcastArticle";
 // import { useEffect, useState } from 'react'
 // import { StoreRegion } from './Interface/product'
 // import Medusa from "@medusajs/medusa-js";
@@ -67,6 +68,7 @@ function App() {
         <Route path="/confirm" element={<OrderConfirm />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/podcast" element={<Podcast />} />
+        <Route path="/podcast/:id" element={<PodcastArticle />} />
         <Route path="*" element={<div>Not Found</div>} />
       </Routes>
     </div>

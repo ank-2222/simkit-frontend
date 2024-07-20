@@ -57,3 +57,24 @@ body {
   font-weight: 900;
   src: url("/public/fonts/gilroy/Gilroy-Black.ttf") format("trueType");
 }
+
+
+
+.article_data h1,
+.article_data h2,
+.article_data h3 {
+  color: rgb(20, 20, 20); /* or your preferred cGreen color */
+  font-weight: 700;
+}
+
+.article_data h1 {
+  font-size: 2em;
+}
+
+.article_data h2 {
+  font-size: 1.5em;
+}
+
+.article_data h3 {
+  font-size: 1.17em;
+}

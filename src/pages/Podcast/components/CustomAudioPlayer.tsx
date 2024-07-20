@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import {
   Pause,
   Play,
@@ -10,9 +11,13 @@ import React, { useRef, useState } from "react";
 
 interface CustomAudioPlayerProps {
   src: string;
+  isArticlePage?: boolean;
 }
 
-const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({ src }) => {
+const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({
+  src,
+  isArticlePage,
+}) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -21,7 +26,7 @@ const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({ src }) => {
   const [showControls, setShowControls] = useState(false);
 
   const togglePlayPause = () => {
-    setShowControls(true);
+    if (!isArticlePage) setShowControls(true);
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
@@ -78,7 +83,12 @@ const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({ src }) => {
   };
 
   return (
-    <div className="custom-audio-player w-[100%] lg:w-[60%] ">
+    <div
+      className={cn(
+        isArticlePage ? "lg:w-[100%] " : "lg:w-[60%]",
+        "custom-audio-player w-[100%] "
+      )}
+    >
       <audio
         ref={audioRef}
         src={src}
@@ -86,7 +96,7 @@ const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({ src }) => {
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
       />
-      {!showControls && (
+      {!showControls && !isArticlePage && (
         <div className="flex justify-start lg:justify-center items-center gap-x-4">
           <button onClick={togglePlayPause}>
             {isPlaying ? (
@@ -110,21 +120,37 @@ const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({ src }) => {
           </p>
         </div>
       )}
-      {showControls && (
+      {(showControls || isArticlePage) && (
         <div className="w-full">
-              <div className="volume-control  relative min-h-fit flex justify-center items-center w-full gap-x-4">
-            <label htmlFor="volume">
-              {volume === 0 ? <VolumeX /> : <Volume2 />}
-            </label>
-            <input
-              type="range"
-              id="volume"
-              value={volume * 100} // Convert to percentage for display
-              onChange={handleVolumeChange}
-              min="0"
-              max="100"
-              className="accent-cGreen  rounded-none    w-full"
-            />
+          <div className="flex justify-between items-center">
+            <div
+              className={cn(
+                isArticlePage ? "justify-start " : "justify-center",
+                "volume-control  relative min-h-fit flex  items-center w-full gap-x-4"
+              )}
+            >
+              <label htmlFor="volume">
+                {volume === 0 ? <VolumeX /> : <Volume2 />}
+              </label>
+              <input
+                type="range"
+                id="volume"
+                value={volume * 100} // Convert to percentage for display
+                onChange={handleVolumeChange}
+                min="0"
+                max="100"
+                className={cn(
+                  isArticlePage ? "w-[100px] " : "w-full",
+                  "accent-cGreen  rounded-none "
+                )}
+              />
+            </div>
+            {isArticlePage && (
+              <p className="font-bold text-[1.2rem]  flex justify-center items-center gap-x-2 ">
+                <span>{Math.floor(duration / 60)}</span>
+                Mins
+              </p>
+            )}
           </div>
           <div className="time text-jakarta font-semibold my-1">
             {Math.floor(currentTime / 60)}:
@@ -145,10 +171,15 @@ const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({ src }) => {
               className="   accent-cGreen  rounded-none   w-full"
             />
           </div>
-         
 
-
-          <div className="flex justify-between items-center gap-x-4 mt-4">
+          <div
+            className={cn(
+              isArticlePage
+                ? "justify-center gap-x-8"
+                : "justify-between gap-x-4",
+              "flex  items-center  mt-4"
+            )}
+          >
             <button
               onClick={skipBackward}
               className="relative flex justify-center items-center"
@@ -181,9 +212,6 @@ const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({ src }) => {
               </p>
             </button>
           </div>
-
-      
-        
         </div>
       )}
     </div>
