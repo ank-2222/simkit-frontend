@@ -37,7 +37,10 @@ function PodcastArticle() {
       <div className="xl:w-[90%] w-[100vw] m-auto px-4 md:px-6 font-jakarta">
         {!isLoading ? (
           <div>
+            <div className="hidden md:block">
+
             <PodcastNavigation currentPodcastId={podcastData?.id||""} />
+            </div>
             <section className="mt-[20px] lg:mt-[50px] w-full flex justify-around gap-x-10 items-start ">
               <div className="flex-1 ">
                 <h1 className="font-jakarta text-[2.25rem] font-bold leading-[125%]  text-left  ">

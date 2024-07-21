@@ -27,10 +27,10 @@ function PodcastNavigation({ currentPodcastId }: PodcastNavigationProps) {
 
     return (
         <div>
-            <div className="flex justify-between items-center mt-14">
+            <div className="flex  justify-between items-center mt-14">
                 <a
                     href="/podcast"
-                    className="text-gray-800 font-semibold border-2 px-4 py-2 flex justify-center w-fit gap-x-4 items-center"
+                    className=" hidden  text-gray-800 font-semibold border-2 px-4 py-2 md:flex justify-center w-fit gap-x-4 items-center"
                 >
                     <ChevronLeftCircle size={20} />
                     Go back to Podcasts
