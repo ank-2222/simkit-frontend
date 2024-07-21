@@ -147,7 +147,7 @@ const CustomAudioPlayer: React.FC<CustomAudioPlayerProps> = ({
             </div>
             {isArticlePage && (
               <p className="font-bold text-[1.2rem]  flex justify-center items-center gap-x-2 ">
-                <span>{Math.floor(duration / 60)}</span>
+                <span>{Math.ceil(duration / 60)}</span>
                 Mins
               </p>
             )}
