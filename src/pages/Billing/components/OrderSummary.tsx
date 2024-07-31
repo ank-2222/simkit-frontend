@@ -38,10 +38,10 @@ function OrderSummary({
                     className="w-[80px] h-[80px] object-cover rounded-xl "
                   />
                   <div>
-                    <h2 className="text-gray-800 text-base  md:text-[1.3rem] font-bold font-jakarta leading-[125%] line-clamp-1">
+                    <h2 className="text-gray-800 text-base  font-bold font-jakarta leading-[125%] line-clamp-1">
                       {item.title}
                     </h2>
-                    <p className="text-cGreen text-lg leading-[125%]  font-bold font-jakarta ">
+                    <p className="text-cGreen text-base leading-[125%]  font-bold font-jakarta ">
                       {item.price && <>${(item.price / 100)?.toFixed(2)}</>}
                     </p>
                     <p className="text-gray-800 text-base leading-[125%] font-bold font-jakarta ">

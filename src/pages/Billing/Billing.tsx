@@ -163,6 +163,18 @@ function Billing() {
           phone: data.phone,
           province: data.state,
         },
+        billing_address: {
+          first_name: data.first_name,
+          last_name: data.last_name,
+          address_1: data.address1,
+          address_2: data.address2,
+          company: data.company,
+          city: data.city,
+          postal_code: data.postal_code,
+          country_code: data.country,
+          phone: data.phone,
+          province: data.state,
+        },
       },
       {
         onSuccess: ({ cart }) => {
@@ -233,7 +245,8 @@ function Billing() {
   const [paymentSession, setPaymentSession] = useState<PaymentSession[]>([]);
   const createPaymentSession = useCreatePaymentSession(cartId || "");
 
-  const [defaultShippingOption, setDefaultShippingOption] = useState<string>("");
+  const [defaultShippingOption, setDefaultShippingOption] =
+    useState<string>("");
 
   const addShippingMethod = useAddShippingMethodToCart(cartId ?? "");
   const handleAddShippingMethod = (optionId: string) => {
@@ -242,9 +255,9 @@ function Billing() {
         option_id: optionId,
       },
       {
-        onSuccess: ({cart}) => {
-          const shippingAmount = cart?.shipping_total||0;
-          const totalAmount = cart?.total||0;
+        onSuccess: ({ cart }) => {
+          const shippingAmount = cart?.shipping_total || 0;
+          const totalAmount = cart?.total || 0;
           setBillSummary((prev) => ({
             ...prev,
             total: totalAmount,
@@ -260,16 +273,14 @@ function Billing() {
     );
   };
 
-  useEffect(()=>{
-    if(cart?.shipping_methods[0]){
+  useEffect(() => {
+    if (cart?.shipping_methods[0]) {
       setShowShippingOption(true);
-   
+
       setDefaultShippingOption(cart?.shipping_methods[0].shipping_option_id);
       setPaymentSession(cart?.payment_sessions ?? []);
-
-
     }
-  },[cart])
+  }, [cart]);
 
   // const handleAddNewAddress = (data: IShippingForm) => {
   //   try {
@@ -316,11 +327,6 @@ function Billing() {
   //     console.error(error);
   //   }
   // };
-
-
-
-
-
 
   // const handleDeleteAddress = (shipping_address_id: string) => {
   //   medusa.customers.addresses
@@ -446,11 +452,11 @@ function Billing() {
           </section>
           {showShippingOption && (
             <section>
-              <ShippingOption 
-              handleAddShippingMethod={handleAddShippingMethod}
-              paymentSession={paymentSession}
-              shippingOptions={shippingOption}
-              defaultShippingOption={defaultShippingOption}
+              <ShippingOption
+                handleAddShippingMethod={handleAddShippingMethod}
+                paymentSession={paymentSession}
+                shippingOptions={shippingOption}
+                defaultShippingOption={defaultShippingOption}
               />
             </section>
           )}
@@ -458,13 +464,13 @@ function Billing() {
 
         <section className="w-full lg:w-[300px]">
           <OrderSummary
-            item={billSummary?.item }
+            item={billSummary?.item}
             subtotal={billSummary?.subtotal}
             tax_total={billSummary?.tax_total}
-            total={billSummary?.total }
+            total={billSummary?.total}
             shipping_total={billSummary?.shipping_total}
             discount_code={billSummary?.discount_code}
-            no_of_discounts={billSummary?.no_of_discounts }
+            no_of_discounts={billSummary?.no_of_discounts}
             discount_total={billSummary?.discount_total}
           />
         </section>
