@@ -52,7 +52,7 @@ function OrderDetails() {
             Order Id : {order?.id}
           </p>
           <div className="max-h-[250px] overflow-scroll">
-          {order &&
+          {/* {order &&
             order.items?.map((item, index) => {
               return (
                 <section
@@ -76,7 +76,7 @@ function OrderDetails() {
                   </div>
                 </section>
               );
-            })}
+            })} */}
         </div>
           
         </section>
