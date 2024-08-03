@@ -21,7 +21,7 @@ function ProductShowcase({
   return (
     <div>
       <div>
-        <section className="mt-[80px] py-16  lg:p-[50px] w-[100%] xl:w-[95%]   m-auto  flex flex-col items-center justify-center ">
+        <section className="mt-[50px] py-16  lg:p-[50px] w-[100%] xl:w-[95%]   m-auto  flex flex-col items-center justify-center ">
           <div className="flex flex-col justify-start items-start xl:max-w-[95%] gap-y-4 px-4 lg:px-0">
             {subTitle && (
               <p className="text-black text-base font-semibold font-['Roboto'] leading-normal">

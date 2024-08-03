@@ -404,7 +404,7 @@ function Billing() {
             Billing Details
           </h1>
           {!isAuth && (
-            <div className="flex flex-col md:flex-row justify-start items-start border-[1px] px-2 md:justify-between md:items-center py-2">
+            <div className="flex flex-col md:flex-row justify-start items-start rounded-[6px] border-[1px] px-2 md:justify-between md:items-center py-2">
               <p className="text-gray-800 text-2xl font-bold font-jakarta leading-[48px]">
                 {" "}
                 Returning Customer?

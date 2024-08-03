@@ -1,0 +1,32 @@
+.custom-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .custom-arrow-prev {
+    left: 10px;
+  }
+  
+  .custom-arrow-next {
+    right: 10px;
+  }
+  
+  .custom-dot {
+    background: #ccc;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .custom-dot-selected {
+    background: #000;
+  }
+  

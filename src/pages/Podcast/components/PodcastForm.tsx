@@ -49,9 +49,9 @@ function PodcastForm() {
             name="first_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel  className="w-full text-black text-xl font-normal font-['Inter'] leading-7">First Name</FormLabel>
+                <FormLabel  className="w-full text-black text-xl font-normal font-jakarta leading-7">First Name</FormLabel>
                 <FormControl>
-                  <Input  className="border-0 border-b-2 border-black/20 text-cGreen font-semibold  text-[1.2rem] font-[poppins]  focus:bg-[#D1F3D4]/50 rounded-[0.4rem] my-2  " {...field} />
+                  <Input  className="border-0 border-b-2 border-black/20 text-cGreen font-semibold  text-[1.2rem] font-[poppins]  focus:bg-[#D1F3D4]/50  my-2  " {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -63,9 +63,9 @@ function PodcastForm() {
             name="last_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel  className="w-full text-black text-xl font-normal font-['Inter'] leading-7">Last Name</FormLabel>
+                <FormLabel  className="w-full text-black text-xl font-normal font-jakarta leading-7">Last Name</FormLabel>
                 <FormControl>
-                  <Input  className="border-0 border-b-2 border-black/20 text-cGreen font-semibold  text-[1.2rem] font-[poppins]  focus:bg-[#D1F3D4]/50 rounded-[0.4rem] my-2  " {...field} />
+                  <Input  className="border-0 border-b-2 border-black/20 text-cGreen font-semibold  text-[1.2rem] font-[poppins]  focus:bg-[#D1F3D4]/50  my-2  " {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -77,9 +77,9 @@ function PodcastForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel  className="w-full text-black text-xl font-normal font-['Inter'] leading-7">Email</FormLabel>
+                <FormLabel  className="w-full text-black text-xl font-normal font-jakarta leading-7">Email</FormLabel>
                 <FormControl>
-                  <Input className="border-0 border-b-2 border-black/20 text-cGreen font-semibold  text-[1.2rem] font-[poppins] focus:bg-[#D1F3D4]/50 rounded-[0.4rem] my-2 " {...field} />
+                  <Input className="border-0 border-b-2 border-black/20 text-cGreen font-semibold  text-[1.2rem] font-[poppins] focus:bg-[#D1F3D4]/50 my-2 " {...field} />
                 </FormControl>
 
                 <FormMessage />

@@ -16,6 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Testimonial from "./Testimonial";
 
 function Information() {
   return (
@@ -74,7 +75,7 @@ function Information() {
           </motion.div>
         </div>
       </section>
-
+<Testimonial/>
       <section className="  px-4 my-[50px] xl:mx-[50px] ">
         <div className="md:mx-8 ">
           <h1 className=" text-black text-[40px] font-bold font-['Roboto'] leading-[125%]">
@@ -90,7 +91,7 @@ function Information() {
 
         <div className="flex flex-col justify-center items-center gap-y-8 mt-[30px] lg:flex-row flex-wrap lg:justify-around lg:items-start lg:mt-[50px] xl:mt-[80px] ">
           <div className="shadow-md p-4 max-w-[400px] lg:max-w-[300px] xl:max-w-[400px] md:h-[410px] lg:h-fit lg:shadow-none lg:p-0  ">
-            <img src={plan1} className=" h-[200px] w-full object-cover " />
+            <img src={plan1} className=" h-[240px] w-full object-cover " />
             <h4 className=" text-black text-2xl font-bold font-['Roboto'] leading-[125%] mt-4">
               Reminder email with link
             </h4>
@@ -101,7 +102,7 @@ function Information() {
             </p>
           </div>
           <div className="shadow-md p-4 max-w-[400px] lg:max-w-[300px] xl:max-w-[400px] md:h-[410px]  lg:h-fit lg:shadow-none lg:p-0 ">
-            <img src={plan2} className=" h-[200px] w-full object-cover " />
+            <img src={plan2} className=" h-[240px] w-full object-cover " />
             <h4 className=" text-black text-2xl font-bold font-['Roboto'] leading-[125%] mt-4">
               Kit arrives to your door with nearly everything you need
             </h4>
@@ -112,7 +113,7 @@ function Information() {
             </p>
           </div>
           <div className="shadow-md p-4 max-w-[400px] lg:max-w-[300px] xl:max-w-[400px] md:h-[410px]  lg:h-fit lg:shadow-none lg:p-0 ">
-            <img src={plan3} className=" h-[200px] w-full object-cover " />
+            <img src={plan3} className=" h-[240px] w-full object-cover " />
             <h4 className=" text-black text-2xl font-bold font-['Roboto'] leading-[125%] mt-4">
               Practice for 30 minutes
             </h4>

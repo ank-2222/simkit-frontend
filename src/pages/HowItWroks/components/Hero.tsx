@@ -14,7 +14,7 @@ function Hero() {
           <div className="flex-col justify-start items-center gap-5 flex">
             <motion.div className="lg:w-[627px] w-[95%] h-[60px] relative">
               <div className="w-[223px] h-[62px] left-[220px] lg:left-[353px] top-4 absolute">
-                <div className="lg:w-[200px] w-[150px] h-[36.82px] left-[0px] top-[0px] absolute bg-gradient-to-r from-sky-400 via-red-400 to-red-400 blur-[10px] opacity-60 z-[0] " />
+                <div className="lg:w-[200px] w-[150px] h-[36.82px] left-[0px] top-[0px] absolute bg-gradient-to-r from-[#4ec5d4] via-zinc-900 to-zinc-900 blur-[15px] opacity-40 z-[0] " />
               </div>
               <div className="lg:w-[627px] relative  text-center text-zinc-900 text-[2.5rem] lg:text-[52px] font-bold font-jakarta leading-[62px]">
                How SimKit Works

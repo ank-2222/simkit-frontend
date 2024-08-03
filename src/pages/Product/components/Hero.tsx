@@ -7,7 +7,7 @@ function Hero() {
   return (
     <div>
 
-<section className="flex flex-col lg:flex-row justify-center items-start lg:gap-x-[50px] xl:gap-x-[80px] p-8 lg:mt-[60px] mt-[30px] gap-y-4 lg:gap-y-0 bg-[#E1F6DE]  ">
+<section className="flex flex-col lg:flex-row justify-center items-start lg:gap-x-[50px] xl:gap-x-[80px] p-8  gap-y-4 lg:gap-y-0 bg-[#E1F6DE]  ">
         <div>
           <img
             src={home1}

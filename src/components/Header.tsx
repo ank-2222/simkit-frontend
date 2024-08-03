@@ -56,7 +56,7 @@ function Header() {
         <div className=" mx-[80px] ">
           <ul className="text-zinc-900 lg:text-[0.9rem] xl:text-[1.1rem] font-medium font-jakarta leading-normal flex flex-row justify-center items-center lg:gap-x-6 xl:gap-x-12">
             <li>
-              <Link to="/how">How it Works</Link>
+              <Link to="/how-it-works">How it Works</Link>
             </li>
             <li>
               <Link to="/about-us">About us</Link>
@@ -164,7 +164,7 @@ function Header() {
           </div>
           <ul className="text-zinc-900 text-[2rem] font-semibold font-['poppins'] leading-normal flex flex-col justify-start items-start gap-y-4 px-4 mt-[10px]   ">
             <li onClick={handleNavigation}>
-              <Link to="/how">How it Works</Link>
+              <Link to="/how-it-works">How it Works</Link>
             </li>
             <li onClick={handleNavigation}>
               <Link to="/about-us">About us</Link>

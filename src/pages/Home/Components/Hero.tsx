@@ -1,6 +1,7 @@
 import { Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import homeHero from "/images/homeHero.png";
 function Hero() {
   return (
     <motion.div
@@ -14,7 +15,7 @@ function Hero() {
           <div className="flex-col justify-start items-center gap-5 flex">
             <motion.div className="lg:w-[627px] w-[95%]  h-[124px] relative">
               <div className="w-[223px] h-[62px] left-[220px] lg:left-[333px] bottom-0 absolute">
-                <div className="lg:w-[200px] w-[150px] h-[36.82px] left-[0px] top-[10px] absolute bg-gradient-to-r from-sky-400 via-red-400 to-red-400 blur-[15px] opacity-60" />
+                <div className="lg:w-[200px] w-[150px] h-[36.82px] left-[0px] top-[10px] absolute bg-gradient-to-r from-[#4ec5d4] via-zinc-900 to-zinc-900 blur-[15px] opacity-40" />
               </div>
               <div className="lg:w-[627px]  left-0 top-0 absolute text-center text-zinc-900 text-[2.5rem] lg:text-[52px] font-bold font-jakarta leading-[125%]">
                 Procedural Training Delivered To You
@@ -53,10 +54,10 @@ function Hero() {
         </div>
 
         <section className="relative  ">
-          <div className="lg:h-[530px] lg:w-[800px] min-w-[400px]  aspect-video border-2 relative bg-white z-[2]  mt-[20px] lg:mt-0 flex justify-center items-center">
-            <p className="text-[#808080] text-[1.4rem] "> video</p>
+          <div className="w-[100vw] border-2  ">
+         <img src={homeHero} className="object-cover w-full max-h-[640px]   " />
           </div>
-          <div className="lg:w-[800px] lg:h-[530px] w-[400px] h-[180px] left-0 top-[40px] lg:top-0 absolute rotate-180 bg-gradient-to-r from-blue-500  via-red-400 to-yellow-300 blur-[30px] opacity-50  " />
+          {/* <div className="lg:w-[800px] lg:h-[530px] w-[400px] h-[180px] left-0 top-[40px] lg:top-0 absolute rotate-180 bg-gradient-to-r from-blue-500  via-red-400 to-yellow-300 blur-[30px] opacity-50  " /> */}
         </section>
       </div>
     </motion.div>

@@ -10,8 +10,8 @@ import {
 
 function Footer() {
   return (
-    <div>
-      <div className="lg:max-w-[90%] w-full px-4 lg:px-0  m-auto mt-[100px] ">
+    <div className=" bg-[#F6FBF4]">
+      <div className="lg:max-w-[90%] w-full px-4 lg:px-0 m-auto pt-[100px] ">
         <section className="flex lg:flex-row flex-col justify-between items-start lg:gap-x-[60px] xl:gap-x-[100px] ">
           <div className="xl:w-[500px] lg:w-[400px] w-full  ">
             <img src={logo} alt="logo" className="w-[122px] h-[30px]" />
@@ -33,16 +33,16 @@ function Footer() {
               </h1>
               <ul className="text-zinc-400 text-lg font-medium font-['Plus Jakarta Sans'] leading-normal flex flex-col gap-y-2">
                 <li>
-                  <Link to="/">How it works</Link>
+                  <Link to="/how-it-works">How it works</Link>
                 </li>
                 <li>
-                  <Link to="/">About Us</Link>
+                  <Link to="/about-us">About Us</Link>
                 </li>
                 <li>
-                  <Link to="/">FAQs</Link>
+                  <Link to="/faq">FAQs</Link>
                 </li>
                 <li>
-                  <Link to="/">Podcasts </Link>
+                  <Link to="/podcast">Podcasts </Link>
                 </li>
               </ul>
             </div>
@@ -52,13 +52,13 @@ function Footer() {
               </h1>
               <ul className="text-zinc-400 text-lg font-medium font-['Plus Jakarta Sans'] leading-normal flex flex-col gap-y-2">
                 <li>
-                  <Link to="/">Get started</Link>
+                  <Link to="/get-started">Get started</Link>
                 </li>
                 <li>
                   <Link to="/">customers</Link>
                 </li>
                 <li>
-                  <Link to="/">contact us</Link>
+                  <Link to="/contact">contact us</Link>
                 </li>
                 <li>
                   <Link to="/">Reviews</Link>
@@ -77,44 +77,44 @@ function Footer() {
                   <Link to="/">Privacy policy</Link>
                 </li>
                 <li>
-                  <Link to="/">Our services</Link>
+                  <Link to="/product">Our services</Link>
                 </li>
                 <li>
-                  <Link to="/">Pricing </Link>
+                  <Link to="/get-started">Pricing </Link>
                 </li>
               </ul>
             </div>
           </div>
         </section>
-        <div className="flex flex-row justify-start items-end gap-x-4 mt-[50px] mb-[50px] lg:mb-[90px] ">
+        <div className="flex flex-row justify-start items-end gap-x-4 mt-[50px] pb-[50px] lg:pb-[90px] ">
           <a>
             <FaInstagram
-              size={40}
-              className="text-white p-1 bg-cGreen rounded-[0.4rem]  "
+              size={36}
+                    className="text-cGreen p-[5px] bg-white rounded-[50rem] hover:p-[0.25rem] hover:rounded-[0.4rem]  hover:scale-110 transition-all duration-100 ease-in-out hover:text-white hover:bg-cGreen "
             />
           </a>
           <a>
             <FaLinkedin
               size={36}
-              className="text-white p-[5px] bg-cGreen rounded-[50rem]  "
+                  className="text-cGreen p-[5px] bg-white rounded-[50rem] hover:p-[0.25rem] hover:rounded-[0.4rem]  hover:scale-110 transition-all duration-100 ease-in-out hover:text-white hover:bg-cGreen "
             />
           </a>
           <a>
             <FaFacebook
               size={36}
-              className="text-white p-[5px] bg-cGreen rounded-[50rem] "
+                 className="text-cGreen p-[5px] bg-white rounded-[50rem] hover:p-[0.25rem] hover:rounded-[0.4rem]  hover:scale-110 transition-all duration-100 ease-in-out hover:text-white hover:bg-cGreen "
             />
           </a>
           <a>
             <FaTwitter
               size={36}
-              className="text-white p-[5px] bg-cGreen rounded-[50rem]  "
+                  className="text-cGreen p-[5px] bg-white rounded-[50rem] hover:p-[0.25rem] hover:rounded-[0.4rem]  hover:scale-110 transition-all duration-100 ease-in-out hover:text-white hover:bg-cGreen "
             />
           </a>
           <a>
             <FaYoutube
               size={36}
-              className="text-white p-[5px] bg-cGreen rounded-[50rem] "
+                    className="text-cGreen p-[5px] bg-white rounded-[50rem] hover:p-[0.25rem] hover:rounded-[0.4rem]  hover:scale-110 transition-all duration-100 ease-in-out hover:text-white hover:bg-cGreen "
             />
           </a>
         </div>
