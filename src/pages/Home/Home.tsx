@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 function Home() {
   return (
-    <div className="max-w-[100vw]  overflow-hidden ">
+    <div className="max-w-[100vw] mt-16  overflow-hidden ">
 <Hero/>
 <Homeskill/>
 <Contact/>

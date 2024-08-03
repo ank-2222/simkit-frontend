@@ -129,7 +129,7 @@ function Information() {
       <section className="mt-[80px] py-8 lg:p-[100px] w-[100%]   m-auto  flex flex-col items-center justify-center bg-[#E1F6DE]   ">
         <div className="flex flex-col justify-start items-start w-full  gap-y-4 px-4 lg:px-0">
           <p className="text-center text-black text-base font-semibold font-['Roboto'] leading-normal">
-            What’s on offer?
+            What are we offering?
           </p>
           <h1 className="text-black lg:text-5xl text-[2.5rem] font-bold font-jakarta  leading-[110%]">
             Cross media learning experience

@@ -4,7 +4,7 @@ import Subscription from './components/Subscription'
 
 function GetStarted() {
   return (
-    <div className='max-w-[100vw] overflow-hidden  '>
+    <div className='max-w-[100vw] overflow-hidden mt-16  '>
 
       <Hero/>
       <Subscription/>

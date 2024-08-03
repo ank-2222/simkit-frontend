@@ -33,8 +33,8 @@ function PodcastArticle() {
   }, [data]);
 
   return (
-    <div>
-      <div className="xl:w-[90%] w-[100vw] m-auto px-4 md:px-6 font-jakarta">
+    <div className=" py-16  ">
+      <div className="xl:w-[90%] w-[100vw] m-auto px-4 md:px-6 font-jakarta ">
         {!isLoading ? (
           <div>
             <div className="hidden md:block">

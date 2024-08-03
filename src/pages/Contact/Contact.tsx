@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 
 function Contact() {
   return (
-    <div  >
+    <div className='lg:pt-10' >
 <section className='lg:max-w-[80%] max-w-[100%] m-auto flex flex-col lg:flex-row justify-center items-start my-10 md:mx-10 lg:gap-x-[150px] lg:mt-[100px] '>
 
         <div className='flex flex-col gap-y-4 lg:w-[518px] p-4 lg:p-0'> 

@@ -4,7 +4,7 @@ import faq from "@/Data/faq.json";
 function Faq() {
   return (
     <div>
-      <section className="max-w-[100vw] px-4 mt-[30px] ">
+      <section className="max-w-[100vw] px-4 mt-24 ">
         <div className="flex flex-col gap-y-2 justify-start items-start lg:mx-8 xl:mx-[100px]  ">
           {" "}
           <p className=" text-gray-900 text-base font-normal font-jakarta uppercase leading-normal tracking-tight">

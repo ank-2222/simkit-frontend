@@ -17,7 +17,7 @@ function Hero() {
               <div className="w-[223px] h-[62px] left-[220px] lg:left-[333px] bottom-0 absolute">
                 <div className="lg:w-[200px] w-[150px] h-[36.82px] left-[0px] top-[10px] absolute bg-gradient-to-r from-[#4ec5d4] via-zinc-900 to-zinc-900 blur-[15px] opacity-40" />
               </div>
-              <div className="lg:w-[627px]  left-0 top-0 absolute text-center text-zinc-900 text-[2.5rem] lg:text-[52px] font-bold font-jakarta leading-[125%]">
+              <div className="lg:w-[627px] md:px-16 left-0 top-0 absolute text-center text-zinc-900 text-[2.5rem] lg:text-[52px] font-bold font-jakarta leading-[125%]">
                 Procedural Training Delivered To You
               </div>
             </motion.div>

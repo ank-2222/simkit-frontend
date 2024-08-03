@@ -44,7 +44,7 @@ function Product() {
   // }, [region, productRefetch]);
 
   return (
-    <div>
+    <div className="mt-20 ">
       <Hero />
 
       {productLoading && (

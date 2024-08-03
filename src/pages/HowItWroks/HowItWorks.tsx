@@ -5,7 +5,7 @@ import Information from "./components/Information";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function HowItWorks() {
   return (
-    <div>
+    <div className="mt-16 ">
       <Hero />
       <Information/>
       <Footer/>

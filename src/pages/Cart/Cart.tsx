@@ -218,7 +218,7 @@ function Cart() {
   };
 
   return (
-    <div className="xl:w-[90%] w-[100vw] m-auto px-4 md:px-6 mt-6 flex flex-col lg:flex-row justify-center items-start gap-x-8 gap-y-8 ">
+    <div className="mt-28  lg:mt-32  xl:w-[90%] w-[100vw] m-auto px-4 md:px-6  flex flex-col lg:flex-row justify-center items-start gap-x-8 gap-y-8 ">
       <section className="flex-1  w-full   ">
         <Breadcrumb>
           <BreadcrumbList>

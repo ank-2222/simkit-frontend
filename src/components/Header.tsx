@@ -48,7 +48,7 @@ function Header() {
 
   return (
     <div>
-      <nav className=" hidden  lg:flex flex-row justify-evenly items-center py-[24px] ">
+      <nav className=" fixed top-0 w-full bg-white shadow-sm  z-[999] hidden  lg:flex flex-row justify-evenly items-center py-[20px] ">
         <Link to="/">
           <img src={logo} alt="logo" className="w-[150px] h-[30px]  "></img>
         </Link>
@@ -108,8 +108,8 @@ function Header() {
         </div>
       </nav>
 
-      <motion.nav className="lg:hidden relative ">
-        <div className="flex flex-row justify-between items-center py-[24px] px-[20px]">
+      <motion.nav className="lg:hidden fixed bg-white top-0 z-[99] w-full">
+        <div className="w-full flex flex-row justify-between items-center py-[24px] px-[20px]">
           <Link to="/">
             <img src={logo} alt="logo" className="w-[150px] h-[30px]  "></img>
           </Link>

@@ -34,7 +34,7 @@ function OrderSummary({
 
   return (
     <div className="flex ">
-      <div className="border-2 border-black/10  w-full p-4">
+      <div className="border-2 rounded-[6px] border-black/10  w-full p-4">
         <h2 className="text-gray-800 text-2xl text-left font-bold font-jakarta leading-[100%]">
           Order Summary
         </h2>

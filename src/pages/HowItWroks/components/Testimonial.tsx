@@ -39,7 +39,7 @@ function Testimonial() {
     );
 
   const customRenderIndicator = (
-    onClickHandler: MouseEventHandler<HTMLButtonElement>,
+    _onClickHandler: MouseEventHandler<HTMLButtonElement>,
     isSelected: boolean,
     index: number,
     label: string | undefined
