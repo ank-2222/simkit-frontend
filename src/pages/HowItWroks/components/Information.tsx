@@ -143,10 +143,10 @@ function Information() {
           <div className="flex flex-col md:flex-row flex-wrap justify-center xl:justify-between  lg:items-start item-center gap-x-8 gap-y-8   lg:px-0 xl:flex-none px-4 md:px-0 ">
             <motion.div
               className="md:w-[45%] xl:w-fit flex flex-col justify-start items-start gap-y-1 "
-              // initial={{ y: -100, opacity: 0 }}
-              // whileInView={{ y: 0, opacity: 1 }}
-              // transition={{ duration: 1, delay: 0 }}
-              // viewport={{ once: true }}
+              initial={{ y: 100, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 0 }}
+              viewport={{ once: true }}
             >
               <div className="flex md:flex-col  justify-start items-end md:items-start gap-x-4">
                 <div className="bg-[#E1F6DE] w-[50px]  h-[50px] rounded-xl flex justify-center items-center   ">
@@ -164,7 +164,12 @@ function Information() {
                 material lists.
               </p>
             </motion.div>
-            <motion.div className="md:w-[45%] xl:w-fit  flex flex-col justify-start items-start gap-y-1 ">
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              viewport={{ once: true }}
+            className="md:w-[45%] xl:w-fit  flex flex-col justify-start items-start gap-y-1 ">
               <div className="flex md:flex-col  justify-start items-end md:items-start gap-x-4">
                 <div className="bg-[#E1F6DE] w-[50px]  h-[50px] rounded-xl flex justify-center items-center   ">
                   <img
@@ -180,7 +185,12 @@ function Information() {
                 Videos on the procedures as well as the practice exercises.
               </p>
             </motion.div>
-            <motion.div className="md:w-[45%]  xl:w-fit  flex flex-col justify-start items-start gap-y-1">
+            <motion.div 
+              initial={{ y: 100, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              viewport={{ once: true }}
+            className="md:w-[45%]  xl:w-fit  flex flex-col justify-start items-start gap-y-1">
               <div className="flex md:flex-col  justify-start items-end md:items-start gap-x-4">
                 <div className="bg-[#E1F6DE] w-[50px]  h-[50px] rounded-xl flex justify-center items-center   ">
                   <img
@@ -196,7 +206,12 @@ function Information() {
                 Using your SimKit model to improve fine motor skills.
               </p>
             </motion.div>
-            <motion.div className="md:w-[45%] xl:w-fit  flex flex-col justify-start items-start gap-y-1 ">
+            <motion.div 
+              initial={{ y: 100, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.9 }}
+              viewport={{ once: true }}
+            className="md:w-[45%] xl:w-fit  flex flex-col justify-start items-start gap-y-1 ">
               <div className="flex md:flex-col  justify-start items-end md:items-start gap-x-4">
                 <div className="bg-[#E1F6DE] w-[50px]  h-[50px] rounded-xl flex justify-center items-center   ">
                   <img
