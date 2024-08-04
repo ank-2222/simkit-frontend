@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import useContact from "@/Feature/contact/useContact";
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -26,6 +27,7 @@ const formSchema = z.object({
   message: z.string().min(2, {
     message: "Write Something.",
   }),
+  type: z.string(),
 });
 
 function Contactform() {
@@ -36,13 +38,15 @@ function Contactform() {
       email: "",
       phone: "",
       message: "",
+      type: "contact",
     },
   });
 
+  const {postContact,data:contactData}=useContact();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
    
-    console.log(values);
-    alert(JSON.stringify(values, null, 2));
+    postContact(values);
   }
 
   return (
