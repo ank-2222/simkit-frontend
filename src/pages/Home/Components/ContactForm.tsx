@@ -47,6 +47,7 @@ function Contactform() {
   function onSubmit(values: z.infer<typeof formSchema>) {
    
     postContact(values);
+    form.reset();
   }
 
   return (

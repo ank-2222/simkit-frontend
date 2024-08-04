@@ -21,6 +21,13 @@ const useContact = () => {
     mutationKey: ["contacts"],
     mutationFn: async (contactData:IContact) => await postContactService(contactData),
 
+    onSuccess: () => {
+      toast({
+        title: "Success",
+        description: "Thank you for contacting us. We will get back to you soon.",
+        variant: "success",
+      });
+    },
     onError: (error: any) => {
        toast({
         title: "Error",
