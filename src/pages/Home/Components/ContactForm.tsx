@@ -42,7 +42,7 @@ function Contactform() {
     },
   });
 
-  const {postContact,data:contactData}=useContact();
+  const {postContact}=useContact();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
    
