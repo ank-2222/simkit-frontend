@@ -22,11 +22,19 @@ const useContact = () => {
     mutationFn: async (contactData:IContact) => await postContactService(contactData),
 
     onSuccess: () => {
+      if(data?.success)
       toast({
         title: "Success",
         description: "Thank you for contacting us. We will get back to you soon.",
         variant: "success",
       });
+      else{
+        toast({
+          title: "Error",
+          description: "Something went wrong. Please try again later.",
+          variant: "default", 
+        });
+      }
     },
     onError: () => {
        toast({
