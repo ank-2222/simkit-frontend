@@ -28,10 +28,10 @@ const useContact = () => {
         variant: "success",
       });
     },
-    onError: (error: any) => {
+    onError: () => {
        toast({
         title: "Error",
-        description: error.message,
+        description:"Something went wrong. Please try again later.",
         variant: "error",
         });
     },

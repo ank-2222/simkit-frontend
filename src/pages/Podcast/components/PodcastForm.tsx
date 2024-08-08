@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import useContact from "@/Feature/contact/useContact";
 const formSchema = z.object({
   first_name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -34,10 +35,18 @@ function PodcastForm() {
     },
   });
 
+   const {postContact}=useContact();
   function onSubmit(values: z.infer<typeof formSchema>) {
    
-    console.log(values);
-    alert(JSON.stringify(values, null, 2));
+     const data = {
+      name : values.first_name + " " + values.last_name,
+      email : values.email,
+      Phone : " ",
+      message : " ",
+      type : "podcast"
+     }
+     postContact(data);
+      form.reset();
   }
 
   return (
