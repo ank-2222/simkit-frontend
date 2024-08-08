@@ -41,8 +41,8 @@ function PodcastForm() {
      const data = {
       name : values.first_name + " " + values.last_name,
       email : values.email,
-      Phone : " ",
-      message : " ",
+      Phone : "0",
+      message : "new subscriber",
       type : "podcast"
      }
      postContact(data);
