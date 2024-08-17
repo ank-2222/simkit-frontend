@@ -14,20 +14,28 @@ function PodcastDisplay({ podcast }: PodcastDisplayProps) {
 
   return (
     <div className="w-full font-jakarta">
-      <hr className="bg-black w-full h-[1px]" />
+      <hr className="bg-black w-full h-[2px] my-2" />
       <div className="flex flex-col lg:flex-row items-start gap-y-4  lg:justify-between lg:items-center gap-x-4 my-8 ">
         <div className="flex flex-col lg:flex-row justify-start items-start gap-x-4">
           <img
             src={podcast?.image_url || podcast1}
-            className="min-w-[100px] h-[100px] object-cover border-2  rounded-[0.5rem]  "
+            className="w-[120px] h-[120px] object-cover border-2  rounded-[0.5rem]  "
           ></img>
 
           <div>
-          <p className="flex justify-start items-center gap-x-1"><User size={16}/> {podcast?.author}  • {formatDistanceToNow(new Date(podcast?.created_at), { addSuffix: true })}</p>
+          <p className="flex justify-start items-center gap-x-1 pb-1"><User size={16}/> 
+          <span className="pr-2">
+          {podcast?.author}
+          </span>
+           •
+          <span className="pl-2">
+          {formatDistanceToNow(new Date(podcast?.created_at), { addSuffix: true })}
+          </span>
+         </p>
             <p className="capitalize text-black text-[1.3rem] font-bold font-jakarta leading-[120%]">
               {podcast.title}
             </p>
-            <p className="text-neutral-500 text-base font-normal line-clamp-3 font-jakarta leading-[110%]">
+            <p className="text-neutral-500 text-base font-normal line-clamp-2 font-jakarta leading-[110%] mt-2">
               {podcast.description}
             </p>
               <a className="text-cGreen underline cursor-pointer"  onClick={()=>{
