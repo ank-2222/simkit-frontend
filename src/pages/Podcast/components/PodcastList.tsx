@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import { podcastData as pdData } from "./data";
+
 function PodcastList() {
   const { getPodcast, data: podcastData } = useGetPodcast();
   const [sortedPodcastData, setSortedPodcastData] = useState<Podcast[] | null>(null);
@@ -43,6 +45,7 @@ function PodcastList() {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentItems = filteredPodcasts?.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleNextPage = () => {
@@ -97,7 +100,7 @@ function PodcastList() {
         </button>
       </div>
       <section className="flex flex-col justify-center items-center min-w-full mt-[20px]">
-        {currentItems && currentItems.map((podcast: Podcast) => (
+        {pdData && pdData.map((podcast: Podcast) => (
           <PodcastDisplay key={podcast.id} podcast={podcast} />
         ))}
       </section>

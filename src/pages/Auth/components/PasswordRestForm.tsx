@@ -134,6 +134,8 @@ const handlePasswordShow=()=>{
                 <p className="text-black text-sm font-normal font-jakarta leading-1 text-right w-full ">Forgot Password?</p>
             </div>
           <Button
+            disabled={true}
+
             type="submit"
             className="w-full bg-black  text-white font-poppins rounded-[0.4rem] hover:bg-black/95  h-[50px] "
           >

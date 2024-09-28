@@ -58,9 +58,9 @@ function Header() {
             <li>
               <Link to="/how-it-works">How it Works</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/about-us">About us</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/faq">FAQs</Link>
             </li>
@@ -166,9 +166,9 @@ function Header() {
             <li onClick={handleNavigation}>
               <Link to="/how-it-works">How it Works</Link>
             </li>
-            <li onClick={handleNavigation}>
+            {/* <li onClick={handleNavigation}>
               <Link to="/about-us">About us</Link>
-            </li>
+            </li> */}
             <li onClick={handleNavigation}>
               <Link to="/faq">FAQs</Link>
             </li>

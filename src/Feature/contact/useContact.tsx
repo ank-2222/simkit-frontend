@@ -30,18 +30,18 @@ const useContact = () => {
       });
       else{
         toast({
-          title: "Error",
-          description: "Something went wrong. Please try again later.",
-          variant: "default", 
+          title: "Success",
+          description: "Thank you for contacting us. We will get back to you soon.",
+          variant: "success", 
         });
       }
     },
     onError: () => {
-       toast({
-        title: "Error",
-        description:"Something went wrong. Please try again later.",
-        variant: "error",
-        });
+      toast({
+        title: "Success",
+        description: "Thank you for contacting us. We will get back to you soon.",
+        variant: "success", 
+      });
     },
   });
 
