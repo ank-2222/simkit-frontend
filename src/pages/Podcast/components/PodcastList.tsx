@@ -44,9 +44,9 @@ function PodcastList() {
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const currentItems = filteredPodcasts?.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentItems = filteredPodcasts?.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);

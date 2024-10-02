@@ -65,7 +65,7 @@ const formSchema = z.object({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function SignupForm({ handleBackLogin }: any) {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const createCustomer = useCreateCustomer();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -80,7 +80,7 @@ function SignupForm({ handleBackLogin }: any) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       createCustomer.mutate(values, {
         onSuccess: () => {
           toast({
@@ -99,9 +99,9 @@ function SignupForm({ handleBackLogin }: any) {
           });
         },
       });
-        setIsLoading(false);
+        // setIsLoading(false);
     } catch (error: any) {
-      setIsLoading(false);
+      // setIsLoading(false);
 
       console.error(error);
     }

@@ -63,7 +63,7 @@ const formSchema = z.object({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function LoginForm({ handleForgotPassword, handleSignupForm }: any) {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const aheadLogin = params.get("ahead");
@@ -77,7 +77,7 @@ function LoginForm({ handleForgotPassword, handleSignupForm }: any) {
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       medusa.auth
         .getToken(values)
         .then(({ access_token }) => {
@@ -88,7 +88,7 @@ function LoginForm({ handleForgotPassword, handleSignupForm }: any) {
             description: "You have successfully logged in",
             variant: "success",
           });
-          setIsLoading(false);
+          // setIsLoading(false);
 
           if (aheadLogin) {
             navigate("/"+aheadLogin);
@@ -113,12 +113,12 @@ function LoginForm({ handleForgotPassword, handleSignupForm }: any) {
                 });
                 handleSignupForm();
               }
-              setIsLoading(false);
+              // setIsLoading(false);
             });
           }
         });
     } catch (error) {
-      setIsLoading(false);
+      // setIsLoading(false);
 
       console.error(error);
     }
